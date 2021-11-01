@@ -1,0 +1,44 @@
+$darkColour: #222D41;
+$lightColour: #F9F8F4;
+$purpleColour: #997FD3;
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    color: $darkColour;
+}
+
+button{
+    color: $darkColour;
+}
+
+.navbar{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 41.6666666% 59.44444%;
+    
+}
+
+ul{
+    padding-top: 2%;
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+li{
+    list-style: none;
+    text-align: center;
+}
+
+.image{
+    background-color: #222D41;
+}
+
+
+
+
