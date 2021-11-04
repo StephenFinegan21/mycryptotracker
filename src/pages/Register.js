@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import myImage from '../assets/Register-image.png';
 import { Link } from 'react-router-dom'
 
+import { useRegister } from '../hooks/useRegister';
+
 
 
 
@@ -16,6 +18,7 @@ import { Link } from 'react-router-dom'
 
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { display } from '@mui/system';
 
 
 
@@ -37,12 +40,13 @@ const [password, setPassword] = useState('')
 const [firstName, setFirstName] = useState('')
 const [lastName, setLastName] = useState('')
 
+const { register, isPending, errors} = useRegister()
+
+
+
 const handleSubmit =(e) => {
   e.preventDefault()
-  console.log(email)
-  console.log(password)
-  console.log(firstName)
-  console.log(lastName)
+  register(email, password, firstName)
 }
   
 
@@ -60,14 +64,17 @@ const handleSubmit =(e) => {
             <TextField id="standard-basic" label="Last Name" variant="outlined" fullWidth type="tex" margin="normal" id="lastName" onChange={ (e) => setLastName(e.target.value)} value={lastName}/> 
             <TextField id="standard-basic" label="email" variant="outlined" fullWidth type="email" margin="normal" id="email" onChange={ (e) => setEmail(e.target.value)} value={email} />
             <TextField id="standard-basic" label="Password" variant="outlined" fullWidth type="password" margin="normal" id="password" onChange={ (e) => setPassword(e.target.value)} value={password} />
-            <Button
+            
+            {!isPending &&<Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ bgcolor:theme.palette.dark, mt: 3, mb: 2 }}
               >
                 Sign up
-              </Button>
+              </Button> }
+              {isPending &&  <Button fullWidth variant="contained" sx={{ bgcolor:theme.palette.dark, mt: 3, mb: 2 }} > Registering </Button> }
+              { errors && <p>{errors}</p>}
               <Link to="/login" style={{ textDecoration: 'none' }}><Typography component="p" variant="p" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.purple, textAlign:'center' }}>Already registered? Log In</Typography></Link>
           </Box>
         </div>
