@@ -5,29 +5,14 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import CryptoTable from '../component/CryptoTable';
 
 const Dashboard = () => {
     return (
-        <div>
+        <div className="dashboard-container">
             <h1>My Dashboard</h1>
-            <div className="crypto-grid">
-                <table>
-                    <tr>
-                        <th>Logo</th>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Profit/Loss</th>
-                    </tr>
-                    <tr>
-                        <td>img</td>
-                        <td>Bitcoin</td>
-                        <td>€100</td>
-                        <td>+40</td>
-                    </tr>
-                </table>
-
-
-            </div>
+            <CryptoTable />
+            
         </div>
     )
 }

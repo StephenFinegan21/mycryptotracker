@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 
 import { TextField } from '@mui/material';
@@ -32,7 +32,18 @@ const theme = createTheme({
 
 export default function Register() {
 
-    
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const [firstName, setFirstName] = useState('')
+const [lastName, setLastName] = useState('')
+
+const handleSubmit =(e) => {
+  e.preventDefault()
+  console.log(email)
+  console.log(password)
+  console.log(firstName)
+  console.log(lastName)
+}
   
 
   return (
@@ -43,12 +54,12 @@ export default function Register() {
        </div>
 
        <div className="form-container">
-          <Box component="form"  sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Typography component="h1" variant="h4" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.dark, textAlign:'center' }}>Get Started</Typography>
-            <TextField id="standard-basic" label="First Name" variant="outlined" fullWidth="true" type="text" margin="normal" />
-            <TextField id="standard-basic" label="Last Name" variant="outlined" fullWidth="true" type="tex" margin="normal" /> 
-            <TextField id="standard-basic" label="email" variant="outlined" fullWidth="true" type="email" margin="normal" />
-            <TextField id="standard-basic" label="Password" variant="outlined" fullWidth="true" type="password" margin="normal" />
+            <TextField id="standard-basic" label="First Name" variant="outlined" fullWidth type="text" margin="normal" id="firstName" onChange={ (e) => setFirstName(e.target.value)} value={firstName}/>
+            <TextField id="standard-basic" label="Last Name" variant="outlined" fullWidth type="tex" margin="normal" id="lastName" onChange={ (e) => setLastName(e.target.value)} value={lastName}/> 
+            <TextField id="standard-basic" label="email" variant="outlined" fullWidth type="email" margin="normal" id="email" onChange={ (e) => setEmail(e.target.value)} value={email} />
+            <TextField id="standard-basic" label="Password" variant="outlined" fullWidth type="password" margin="normal" id="password" onChange={ (e) => setPassword(e.target.value)} value={password} />
             <Button
                 type="submit"
                 fullWidth
