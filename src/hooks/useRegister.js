@@ -1,20 +1,21 @@
 
-import { useState } from "react"
+import { useState , useEffect} from "react"
 import { cryptoAuth } from "../firebase/config"
+import { useAuthContext } from "./useAuthContext"
 
 export const useRegister = () => {
 
-    const [error, setError] = useState(null) 
-    const [isPending, setIsPending] = useState(false)       
+    const [isCancelled, setIscancelled ] = useState(false)
+    const [error, setError] = useState(null);
+    const [isPending, setIsPending] = useState(false);
+     const { dispatch } = useAuthContext();  
 
     const register = async (email, password, displayName ) =>{
         setError(null)      //reset any errors to null
         setIsPending(true)  //Create user process started
 
         try {
-            //register
             const response = await cryptoAuth.createUserWithEmailAndPassword(email, password)
-            console.log(response.user)
 
             if(!response){
                 throw new Error('couldnt register user')
@@ -23,17 +24,31 @@ export const useRegister = () => {
             //Add display name
             await response.user.updateProfile({ displayName : displayName})
 
-            setIsPending(false)
-            setError(null)
+            //dispatch login action
+            dispatch({ type: 'LOGIN', payload: response.user})
+
+
+            if(!isCancelled){
+                setIsPending(false)
+                setError(null)
+            }
 
         }
         //catch
-        catch(error){
-            console.log(error.message)
-            setError(error.message)
-            setIsPending(false)
+        catch(errorMsg){
+            if(!isCancelled){
+             console.log(errorMsg.message)
+             setError(errorMsg.message)
+             setIsPending(false)
+         }
         }
+
+
     }
+    useEffect ( ()  => {
+        return () => setIscancelled(true)
+     }, [])
+    
 
     return {error, isPending, register}
 

@@ -42,7 +42,7 @@ export default function ForgotPassword() {
        <div className="form-container">
           <Box component="form"  sx={{ mt: 1 }}>
           <Typography component="h1" variant="h4" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.dark, textAlign:'center' }}>Forgot Password</Typography>
-            <TextField id="standard-basic" label="email" variant="outlined" fullWidth="true" type="email" margin="normal" />
+            <TextField id="standard-basic" label="email" variant="outlined" fullWidth type="email" margin="normal" />
            
             <Button
                 type="submit"

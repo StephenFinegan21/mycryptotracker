@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import myImage from '../assets/login-img.png';
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
+import { useLogin } from '../hooks/useLogin';
 
 
 
@@ -32,11 +33,13 @@ export default function Login() {
 
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
+const { login, error, isPending } = useLogin()
 
 const handleSubmit =(e) => {
   e.preventDefault()
+  login(email, password)
   console.log(email)
-  console.log(password)
+
 }
   
 
@@ -61,6 +64,8 @@ const handleSubmit =(e) => {
               >
                 Log In
               </Button>
+              {isPending &&  <Button fullWidth variant="contained" sx={{ bgcolor:theme.palette.dark, mt: 3, mb: 2 }} > Logging In </Button> }
+              { error && <p>{error}</p>}
               <Link to="/forgotpassword" style={{ textDecoration: 'none', color:"white" }}><Typography component="p" variant="p" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.purple, textAlign:'center' }}>Forgot Password?</Typography></Link>
               <Link to="/register" style={{ textDecoration: 'none' }}><Typography component="p" variant="p" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.purple, textAlign:'center' }}>Register</Typography></Link>
           </Box>
