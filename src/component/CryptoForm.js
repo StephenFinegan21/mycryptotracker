@@ -1,13 +1,43 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useFirestore } from '../hooks/useFirestore'
 
-const CryptoForm = () => {
+const CryptoForm = ({ userId }) => {
     const [cryptoName, setCryptoName] = useState('')
+    const { addRecord , response } = useFirestore('cryptos')
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(cryptoName);
-    }
+        addRecord({
+            cryptoName,
+            uid: userId,
+            totalCoin: 0,
+            totalCost: 0,
+            costBasis: 0,
+            currentPrice: 0,
+            currentValue: 0,
+            profitOrloss: 0,
+
+            transactions:{
+                date: '',
+                coins: 0,
+                price: 0,
+                cost: 0,
+                transaction: ''
+            }
+        
+        },
+            
+            )
+         }
+
+         useEffect(() => {
+             if(response.success){
+                 setCryptoName('')
+             }
+         }, [response.success])
+
+        
 
     return (
         <>

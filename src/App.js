@@ -47,6 +47,7 @@ const { authIsReady, user } = useAuthContext()
               {user && <Dashboard /> }
               {!user && <Redirect to ="/login" />}
             </Route>
+            
           </Switch>
       </BrowserRouter>
       )}
