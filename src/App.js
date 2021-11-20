@@ -29,7 +29,8 @@ const { authIsReady, user } = useAuthContext()
       <CssBaseline />
         <Switch>
           <Route exact path="/">
-              <Register />
+              {!user && <Register /> }
+              {user && <Redirect to ="/dashboard" />}
             </Route>
             <Route path="/login">
               {!user && <Login /> }

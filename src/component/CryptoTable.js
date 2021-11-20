@@ -1,5 +1,6 @@
 import React from 'react'
 import CryptoRow from './CryptoRow'
+import CryptoForm from './CryptoForm'
 
 const CryptoTable = () => {
     return (
@@ -12,8 +13,8 @@ const CryptoTable = () => {
                         <th>Profit/Loss</th>
                     </tr>
                     <CryptoRow />
-
                 </table>
+                <CryptoForm />
 
 
             </div>

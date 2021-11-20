@@ -38,7 +38,7 @@ const { login, error, isPending } = useLogin()
 const handleSubmit =(e) => {
   e.preventDefault()
   login(email, password)
-  console.log(email)
+  
 
 }
   
