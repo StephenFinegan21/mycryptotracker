@@ -65,6 +65,7 @@ export const useFirestore = (collection) => {
              dispatchIfnotCancelled( {type: 'ERROR', payload: errorMsg.message})
          }
      }
+
     
 
     useEffect(() =>{

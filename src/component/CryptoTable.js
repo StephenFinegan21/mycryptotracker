@@ -5,6 +5,7 @@ import { useAuthContext } from ".././hooks/useAuthContext"
 import { useCollection } from ".././hooks/useCollection"
 
 
+
 const CryptoTable = () => {
      const {user} = useAuthContext()
      const {documents, error} = useCollection(
@@ -28,6 +29,8 @@ const CryptoTable = () => {
                     key={crypto.id}
                     cryptoName = {crypto.cryptoName}
                     cryptoId = {crypto.id}
+                    cryptoValue = {crypto.currentValue}
+                    cryptoProfit = {crypto.profitOrloss}
                     
                     />))}
                 </table>

@@ -14,6 +14,7 @@ import {
   Switch,
   Route, Redirect
 } from "react-router-dom";
+import TransactionPage from './component/TransactionPage';
 
 
 function App() {
@@ -45,6 +46,10 @@ const { authIsReady, user } = useAuthContext()
             </Route>
             <Route exact path="/dashboard">
               {user && <Dashboard /> }
+              {!user && <Redirect to ="/login" />}
+            </Route>
+            <Route exact path="/transactions/:id">
+              {user && <TransactionPage /> }
               {!user && <Redirect to ="/login" />}
             </Route>
             
