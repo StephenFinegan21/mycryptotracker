@@ -18,6 +18,9 @@ const fireReducer = (state, action) =>{
             case 'ADDED_RECORD':
             return { isPending: false, record: action.payload, success: true, error: null }
 
+            case 'UPDATED_RECORD':
+            return { isPending: false, record: action.payload, success: true, error: null }
+
             case 'DELETED_RECORD':
             return { isPending: false, record: null, success: true, error: null }
 
@@ -66,11 +69,25 @@ export const useFirestore = (collection) => {
          }
      }
 
+
+     const updateRecord = async (id, updatedData) => {
+        dispatch({type: 'IS_PENDING'})
+
+        try{
+           const updatedRecord =  await reference.doc(id).update(updatedData)
+           dispatchIfnotCancelled( {type: 'UPDATED_RECORD', payload: updatedRecord})
+           return updatedRecord
+        }
+        catch(errorMsg){
+            dispatchIfnotCancelled( {type: 'ERROR', payload: errorMsg.message})
+        }
+    }
+
     
 
     useEffect(() =>{
         return () => setIsCancelled(true)
     }, [])
 
-    return {addRecord, deleteRecord, response}
+    return {addRecord, updateRecord,  deleteRecord, response}
 }

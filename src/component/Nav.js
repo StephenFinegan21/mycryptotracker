@@ -13,31 +13,34 @@ const Nav = () => {
 
     return (
         <>
-        <div className="navbar" >
-        
-    
-         <ul>
-            <li>News</li>
-            <li>Rankings</li>
-            {!user && 
-            <>
-            <li><Link to="/login" style={{ textDecoration: 'none' }}>Login</Link></li>
-            </>
-            }
+        {!user &&
+            <div className="navbar" >
+                <ul>
+                    <li>News</li>
+                    <li>Rankings</li>
+                    <li><Link to="/login" style={{ textDecoration: 'none' }}>Login</Link></li>
+                </ul>
+            </div>
+        }
 
-            {user && 
-            <li>
-                <p>Hello {user.displayName}</p>
-            <button onClick={logout}><Link to="/login" style={{ textDecoration: 'none' }}>Logout</Link></button>
-            </li>
-            }
-        </ul>
-        </div>
+
+        {user &&
+            <div className="dark-navbar" >
+                <ul>
+                    <li>News</li>
+                    <li>Rankings</li>
+                    <li onClick={logout}><Link to="/login" style={{ textDecoration: 'none', color: '#F9F8F4' }}>Logout</Link></li>
+                </ul>
+            </div>
+    
+        }           
+       
 
 
 
         </>
     )
 }
+
 
 export default Nav

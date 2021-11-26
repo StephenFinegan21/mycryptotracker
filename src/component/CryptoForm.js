@@ -18,13 +18,9 @@ const CryptoForm = ({ userId }) => {
             currentValue: 0,
             profitOrloss: 0,
 
-            transactions:{
-                date: '',
-                coins: 0,
-                price: 0,
-                cost: 0,
-                transaction: ''
-            }
+            transactions: [
+               
+            ]
         
         },
             
