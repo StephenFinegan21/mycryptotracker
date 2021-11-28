@@ -12,6 +12,8 @@ const TransactionPage = () => {
 
     const location = useLocation().pathname.split('/')
     const locationId = location[location.length-1]
+    let count = -1
+ 
     
    
 
@@ -50,15 +52,23 @@ const TransactionPage = () => {
              
                 {
                    documents[index].transactions.map(m =>
+
+                   
+                   
                     <TransactionRecord 
+                    cryptoIndex ={index}
+                    id={documents[index].id}
+                    index = {count += 1}
                     date = {m.date} 
                     coins = {m.coins}
-                    price = {m.coins}
-                    cost = {m.coins}
+                    price = {m.price}
+                    cost = {m.cost}
                     type = {m.type}
                     />
+                   
                    )
-                }
+}
+                
                 {documents && <TransactionForm id = {documents[index]} /> }
                 
                 </div>

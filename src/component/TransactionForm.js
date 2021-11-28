@@ -8,7 +8,7 @@ const TransactionForm = ({ id }) => {
 
     const [state, setState] = useState({
         date: "",
-        coins: "",
+        coins: 0,
         price: "",
         cost: "",
         type: "",
@@ -22,25 +22,22 @@ const TransactionForm = ({ id }) => {
         });
       }
 
-
     const handleSubmit = async (e) => {
-      
-         
-
         e.preventDefault()
-    
-                 
         
-
+    
         await updateRecord(id.id, {
-            transactions: [...id.transactions, state]
+            
+            transactions: [...id.transactions, state],
+            totalCoin: [parseInt(id.totalCoin) + parseInt(state.coins)],
+            
         })
+        console.log(response)
         if(!response.error){
 
-        
-        setState({
+         setState({
             date: "",
-            coins: "",
+            coins: 0,
             price: "",
             cost: "",
             type: "",

@@ -24,6 +24,9 @@ const fireReducer = (state, action) =>{
             case 'DELETED_RECORD':
             return { isPending: false, record: null, success: true, error: null }
 
+            case 'DELETED_TRANSACTION':
+            return { isPending: false, record: null, success: true, error: null }
+
             case 'ERROR':
             return {isPending: false, record:null, success: false,  error: action.payload }
 
@@ -69,6 +72,19 @@ export const useFirestore = (collection) => {
          }
      }
 
+     const deleteTransaction = async (id, index) => {
+        dispatch({type: 'IS_PENDING'})
+
+        try{
+            console.log(reference.doc(id))
+            await reference.doc(id).transactions[index].delete()
+            dispatchIfnotCancelled( {type: 'DELETED_TRANSACTION'})
+         }
+         catch(errorMsg){
+             dispatchIfnotCancelled( {type: 'ERROR', payload: errorMsg.message})
+         }
+     }
+
 
      const updateRecord = async (id, updatedData) => {
         dispatch({type: 'IS_PENDING'})
@@ -89,5 +105,5 @@ export const useFirestore = (collection) => {
         return () => setIsCancelled(true)
     }, [])
 
-    return {addRecord, updateRecord,  deleteRecord, response}
+    return {addRecord, updateRecord,  deleteRecord, deleteTransaction, response}
 }
