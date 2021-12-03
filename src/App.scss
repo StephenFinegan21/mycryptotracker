@@ -175,6 +175,7 @@ table{
 .transaction-form{
     width: 90%;
     border: none;
+  
 
     
 }
@@ -198,3 +199,22 @@ table{
     }
 
 }
+
+.form{
+    
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr .5fr;
+
+
+    input{
+       
+        margin-left: 2px;
+        margin-right: 2px;
+        height: 50px;
+        border: none;
+        text-align: center;
+        
+
+    }
+}
+

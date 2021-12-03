@@ -7,12 +7,12 @@ import { useCollection } from ".././hooks/useCollection"
 
 
 const CryptoTable = () => {
-     const {user} = useAuthContext()
+     const {user} = useAuthContext()    //Current signed in user
+
+     //Gets the 'cryptos' data that belongs to the current signed in user
      const {documents, error} = useCollection(
          'cryptos',
          ["uid", "==", user.uid ])
-
-         
 
     return (
         <div className="crypto-grid">
@@ -26,18 +26,15 @@ const CryptoTable = () => {
                     {error && <p>error</p>}
                     {documents && documents.map((crypto) => ( 
                     <CryptoRow 
-                    key={crypto.id}
-                    cryptoName = {crypto.cryptoName}
-                    cryptoId = {crypto.id}
-                    cryptoValue = {crypto.currentValue}
-                    cryptoProfit = {crypto.profitOrloss}
-                    
+                        key={crypto.id}
+                        cryptoName = {crypto.cryptoName}
+                        cryptoId = {crypto.id}
+                        cryptoValue = {crypto.currentValue}
+                        cryptoProfit = {crypto.profitOrLoss}
                     />))}
                 </table>
                 <CryptoForm userId = {user.uid}/>
-
-
-            </div>
+        </div>
     )
 }
 

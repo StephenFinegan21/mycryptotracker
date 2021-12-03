@@ -10,49 +10,55 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         'cryptos',
         ["uid", "==", user.uid ])
     
-   // const currentData = documents[cryptoIndex].cryptoName
-
-  
-
-    //const { updateRecord , response } = useFirestore('cryptos')
     const { updateRecord , response } = useFirestore('cryptos')
 
     const handleDelete = async (id, index) => {
 
-        const newValue = (documents[cryptoIndex].transactions.splice(index, 1))
+        /* 
+        Store the transaction to be deleted in 'valueToDelete'
+        'index' is a prop passed into this component - holds the index position of each transactionrecord
+        use splice to seperate the current index from rest of array
+        */
+        const valueToDelete = (documents[cryptoIndex].transactions.splice(index, 1)) 
         
-
+        //New Array that will be shown once 'valueToDelete' is removed.
         const newArray = (documents[cryptoIndex].transactions.filter(n => {
-            return n != newValue
+            return n != valueToDelete
         }))
 
-        console.log(newArray)
-
+       //if(valueToDelete[0].type === 'Buy'){
         updateRecord(id, {
             
             transactions: newArray,
-       
-            
+            totalCoin: [parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)],
+            totalCost: [parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)],
+            costBasis: [(parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins))],
+            currentValue: [(parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * parseInt(documents[cryptoIndex].currentValue)],
+            profitOrLoss: [(parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * parseInt(documents[cryptoIndex].currentValue)] - ([(parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins))] )
         })
-
-        
-    
-
-       
+       //}
+       /*
+       else if(valueToDelete[0].type === 'Sell'){
+        updateRecord(id, {
+            
+            transactions: newArray,
+            totalCoin: [parseInt(documents[cryptoIndex].totalCoin) + parseInt(newValue[0].coins)],
+            totalCost: [parseInt(documents[cryptoIndex].totalCost) + parseInt(newValue[0].cost)],
+            costBasis: [(parseInt(documents[cryptoIndex].totalCost) + parseInt(newValue[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) + parseInt(newValue[0].coins))],
+            currentValue: [(parseInt(documents[cryptoIndex].totalCoin) + parseInt(newValue[0].coins)) * parseInt(documents[cryptoIndex].currentValue)]
+        })
+       }
+       */
     }
 
-    //console.log(documents && documents[cryptoIndex].transactions)
-/*
-    documents && documents[cryptoIndex].filter(m => {
-        console.log(m.id !== id)
-    })
-*/
+    
+
     return (
        <>
             <div className="transaction-row">
                 <p>{date}</p>
                 <p>{coins}</p>
-                <p>{cost}</p>
+                <p>€{cost}</p>
                 <p>{price}</p>
                 <p>{type}</p>
                 <button onClick = {() => handleDelete(id, index)}>X</button>
