@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useState, useEffect } from 'react'
-import Select from 'react-select'
+
 
 //Pass in the selected Cryptocurrency as props
 const TransactionForm = ({ crypto }) => {
@@ -56,11 +56,11 @@ const TransactionForm = ({ crypto }) => {
 
                 totalCoin: [parseInt(crypto.totalCoin) + parseInt(state.coins)],
                 totalCost: [parseInt(crypto.totalCost) + parseInt(state.cost)],
-                currentPrice: 10,
                 
                 
                 
-            })
+                
+            },console.log('one'))
 
             await updateRecord(crypto.id, {
             
@@ -70,10 +70,22 @@ const TransactionForm = ({ crypto }) => {
                 
                 costBasis: [(parseInt(crypto.totalCost) + parseInt(state.cost)) / (parseInt(crypto.totalCoin) + parseInt(state.coins))],
                 currentValue: [(parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice],
-                profitOrLoss: [(parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice] - ([(parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice])
+               
                 
                 
-            })
+            },console.log('two'))
+            await updateRecord(crypto.id, {
+            
+                transactions: [...crypto.transactions, state],
+                profitOrLoss: ((parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice) - (parseInt(crypto.totalCost) + parseInt(state.cost))
+
+                
+                
+            },console.log( 
+                (parseInt(crypto.totalCost) + parseInt(state.cost)) - ((parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice)
+                 ))
+
+    
 
         //}
         /*else if(state.type === 'Sell'){
@@ -87,7 +99,19 @@ const TransactionForm = ({ crypto }) => {
                 currentValue: [(parseInt(crypto.totalCoin) - parseInt(state.coins)) * crypto.currentPrice],
             })
         */
+
+
+            if(crypto.profitOrLoss === NaN || crypto.costBasis === NaN ){
+               await updateRecord(crypto.id, {
+                    transactions: [...crypto.transactions, state],
+                    costBasis: 0,
+                    profitOrLoss: 0
+        
+                    
+               })
+            }
        //Reset the state if no errors
+       
         if(!response.error){
              setState({
                    date: "",

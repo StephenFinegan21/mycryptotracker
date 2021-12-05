@@ -6,6 +6,7 @@ import Nav from './component/Nav';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
+import Rankings from './pages/Rankings';
 import { useAuthContext } from './hooks/useAuthContext';
 
 
@@ -51,6 +52,9 @@ const { authIsReady, user } = useAuthContext()
             <Route exact path="/transactions/:id">
               {user && <TransactionPage /> }
               {!user && <Redirect to ="/login" />}
+            </Route>
+            <Route exact path="/rankings">
+              <Rankings />
             </Route>
             
           </Switch>

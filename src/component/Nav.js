@@ -17,8 +17,8 @@ const Nav = () => {
             <div className="navbar" >
                 <ul>
                     <li>News</li>
-                    <li>Rankings</li>
-                    <li><Link to="/login" style={{ textDecoration: 'none' }}>Login</Link></li>
+                    <li><Link to="/Rankings" style={{ textDecoration: 'none', color: '#F9F8F4' }}>Rankings</Link></li>
+                    <li><Link to="/login" style={{ textDecoration: 'none', color: '#F9F8F4' }}>Login</Link></li>
                 </ul>
             </div>
         }
@@ -28,7 +28,7 @@ const Nav = () => {
             <div className="dark-navbar" >
                 <ul>
                     <li>News</li>
-                    <li>Rankings</li>
+                    <li><Link to="/Rankings" style={{ textDecoration: 'none', color: '#F9F8F4' }}>Rankings</Link></li>
                     <li onClick={logout}><Link to="/login" style={{ textDecoration: 'none', color: '#F9F8F4' }}>Logout</Link></li>
                 </ul>
             </div>

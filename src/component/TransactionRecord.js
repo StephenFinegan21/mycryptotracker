@@ -2,6 +2,7 @@ import React from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useCollection } from ".././hooks/useCollection"
 import { useAuthContext } from ".././hooks/useAuthContext"
+import { useEffect } from 'react'
 
 const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, type}) => {
 
@@ -11,9 +12,10 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         ["uid", "==", user.uid ])
     
     const { updateRecord , response } = useFirestore('cryptos')
+    //documents && console.log("price is " + (documents[cryptoIndex].currentPrice))
 
     const handleDelete = async (id, index) => {
-
+        
         /* 
         Store the transaction to be deleted in 'valueToDelete'
         'index' is a prop passed into this component - holds the index position of each transactionrecord
@@ -28,14 +30,21 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
 
        //if(valueToDelete[0].type === 'Buy'){
         updateRecord(id, {
-            
             transactions: newArray,
             totalCoin: [parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)],
             totalCost: [parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)],
-            costBasis: [(parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins))],
-            currentValue: [(parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * parseInt(documents[cryptoIndex].currentValue)],
-            profitOrLoss: [(parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * parseInt(documents[cryptoIndex].currentValue)] - ([(parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins))] )
         })
+        updateRecord(id, {
+            transactions: newArray,
+            costBasis: (parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)),
+            currentValue: [(parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * parseInt(documents[cryptoIndex].currentValue)],
+        })
+        updateRecord(id, {
+            transactions: newArray,
+            profitOrLoss : ((parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * (documents[cryptoIndex].currentPrice))     -      ((parseInt(documents[cryptoIndex].totalCoin) - parseInt(valueToDelete[0].coins)) * (documents[cryptoIndex].costBasis)) 
+        }, console.log(
+            isNaN((parseInt(documents[cryptoIndex].totalCost) - parseInt(valueToDelete[0].cost)) / 0 ),
+        ))
        //}
        /*
        else if(valueToDelete[0].type === 'Sell'){
@@ -49,9 +58,19 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         })
        }
        */
+
+       if(documents && isNaN(documents[cryptoIndex].costBasis)){
+        updateRecord(id, {
+            transactions: newArray,
+            costBasis : 0 
+        })
+    }
+    
+    
+
     }
 
-    
+
 
     return (
        <>

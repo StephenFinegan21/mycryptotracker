@@ -37,7 +37,7 @@ const TransactionPage = () => {
                     <Metric type = {documents[index].cryptoName } title="Name" />
                     <Metric type = {documents[index].totalCoin} title="Total Coins"/>
                     <Metric type = {documents[index].totalCost} title="Total Cost"/>
-                    <Metric type = {documents[index].costBasis} title="Cost Basis"/>
+                    <Metric type = {isNaN(documents[index].costBasis) ? 0:documents[index].costBasis} title="Cost Basis"/>
                     <Metric type = {documents[index].currentPrice} title="Current Price"/>
                     <Metric type = {documents[index].currentValue} title="Current Value"/>
                     <Metric type = {documents[index].profitOrLoss} title="Profit/Loss"/>
