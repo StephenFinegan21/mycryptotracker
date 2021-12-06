@@ -54,8 +54,8 @@ const TransactionForm = ({ crypto }) => {
                 //Current state - which is the last data to be entered into form is added into the transactions array
                 transactions: [...crypto.transactions, state],
 
-                totalCoin: [parseInt(crypto.totalCoin) + parseInt(state.coins)],
-                totalCost: [parseInt(crypto.totalCost) + parseInt(state.cost)],
+                totalCoin: [parseFloat(crypto.totalCoin) + parseFloat(state.coins)],
+                totalCost: [parseFloat(crypto.totalCost) + parseFloat(state.cost)],
                 
                 
                 
@@ -68,8 +68,8 @@ const TransactionForm = ({ crypto }) => {
                 transactions: [...crypto.transactions, state],
 
                 
-                costBasis: [(parseInt(crypto.totalCost) + parseInt(state.cost)) / (parseInt(crypto.totalCoin) + parseInt(state.coins))],
-                currentValue: [(parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice],
+                costBasis: [(parseFloat(crypto.totalCost) + parseFloat(state.cost)) / (parseFloat(crypto.totalCoin) + parseFloat(state.coins))],
+                currentValue: [(parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice],
                
                 
                 
@@ -77,12 +77,12 @@ const TransactionForm = ({ crypto }) => {
             await updateRecord(crypto.id, {
             
                 transactions: [...crypto.transactions, state],
-                profitOrLoss: ((parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice) - (parseInt(crypto.totalCost) + parseInt(state.cost))
+                profitOrLoss: ((parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice) - (parseFloat(crypto.totalCost) + parseFloat(state.cost))
 
                 
                 
             },console.log( 
-                (parseInt(crypto.totalCost) + parseInt(state.cost)) - ((parseInt(crypto.totalCoin) + parseInt(state.coins)) * crypto.currentPrice)
+                (parseFloat(crypto.totalCost) + parseFloat(state.cost)) - ((parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice)
                  ))
 
     
@@ -144,6 +144,8 @@ const TransactionForm = ({ crypto }) => {
                             placeholder="Coins"
                             type="number"
                             name="coins"
+                            min="0.00000"
+                            step="0.00001"
                             value={state.coins}
                             onChange={handleChange}
                         />
@@ -154,6 +156,8 @@ const TransactionForm = ({ crypto }) => {
                             placeholder="Price"
                             type="number" min="1" step="any"
                             name="price"
+                            min="0.00000"
+                            step="0.00001"
                             value={state.price}
                             onChange={handleChange}
                         />
@@ -164,6 +168,8 @@ const TransactionForm = ({ crypto }) => {
                             placeholder="Cost"
                             type="number"
                             name="cost"
+                            min="0.00000"
+                            step="0.00001"
                             value={state.cost}
                             onChange={handleChange}
                         />

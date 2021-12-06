@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useGetCryptosQuery } from '../services/cryptoApi'
 import Select from 'react-select'
+import { padding } from '@mui/system'
 
-const CryptoForm = ({ userId }) => {
+const CryptoForm = ({ userId, docs }) => {
 
     
     const [cryptoName, setCryptoName] = useState('')        //For setting name of Crypto
     const [currentPrice, setCurrentPrice] = useState(0)        //For setting name of Crypto
+    const [logo, setLogo] = useState(0)        //For setting name of Crypto
     const { addRecord , response } = useFirestore('cryptos')//access the hook that will allow to adda a new Crypto
 
     const { data, isFetching } = useGetCryptosQuery();
@@ -17,25 +19,62 @@ const CryptoForm = ({ userId }) => {
      const cryptoList = []
      
      data && data.map(n => 
-        
-           cryptoList.push({value: n.name, label: n.name, currentPrice: n.current_price}),
+        cryptoList.push({value: n.name, label: n.name, currentPrice: n.current_price, logo: n.image}),
          
      )
-     //console.log(cryptoList)
+
+    const existingCoins = (docs && docs.map(c => c.cryptoName))
+   
+   
+     const customStyles = {
+
+        container:(provided, state) => ({
+            ...provided,
+            paddingTop: '2%',
+            width : '60%',
+            margin:'auto',
+        }),
+
+        option:(provided, state) => ({
+            ...provided,
+            width : '60%',
+            margin:'auto',
+            
+        }),
+
+      
+        control:(provided, state) => ({
+            ...provided,
+            width : '60%',
+            margin:'auto',
+            placeholder:"test"
+        }),
+
+
+      }
 
     
-      //To be used if allowing users to add 'sell' records
+      
 
     const handleSelect = async (option) =>{
        
        setCryptoName(option.value)
         setCurrentPrice(option.currentPrice)
+        setLogo(option.logo)
       }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        if(cryptoName === '' || existingCoins.includes(cryptoName)){
+            return
+        }
+        
+       
+
+        
         addRecord({
             cryptoName,
+            logo: logo,
             uid: userId,
             totalCoin: 0,
             totalCost: 0,
@@ -51,10 +90,14 @@ const CryptoForm = ({ userId }) => {
 
     //If the crypto is added succesfully, reset the value to blank
     useEffect(() => {
-             if(response.success){
+        console.log(response)
+             
+                 
                  setCryptoName('')
-             }
-         }, [response.success])
+                 setCurrentPrice('')
+                setLogo('')
+             
+         }, [response])
 
         
 
@@ -64,11 +107,17 @@ const CryptoForm = ({ userId }) => {
             {data && 
             <div>
             <form onSubmit = {handleSubmit}>
+            <input type="submit" className="add-crypto-btn" />
                 <Select
+                    required
                     options={cryptoList}
-                    onChange={(o) => handleSelect(o)} 
+                    onChange={(o) => handleSelect(o)}
+                    styles={customStyles}
+                   
+                    
+                     
                 />
-                <input type="submit" />
+                
             </form>
 
             </div>

@@ -5,6 +5,7 @@ import { useAuthContext } from ".././hooks/useAuthContext"
 import TransactionForm from './TransactionForm'
 import Metric from './Metric'
 import TransactionRecord from './TransactionRecord'
+import { fontWeight } from '@mui/system'
 
 
 
@@ -33,8 +34,12 @@ const TransactionPage = () => {
     return (<>  
              {documents && 
              <>
-                <div className="metric-container">
-                    <Metric type = {documents[index].cryptoName } title="Name" />
+             <div className="metric-container">
+                 <div className="crypto-name-container">
+                    <h4>My {documents[index].cryptoName } </h4>
+                    <img src = {documents[index].logo} className="image" />
+                </div>
+                <div className="stat-container">
                     <Metric type = {documents[index].totalCoin} title="Total Coins"/>
                     <Metric type = {documents[index].totalCost} title="Total Cost"/>
                     <Metric type = {isNaN(documents[index].costBasis) ? 0:documents[index].costBasis} title="Cost Basis"/>
@@ -42,22 +47,33 @@ const TransactionPage = () => {
                     <Metric type = {documents[index].currentValue} title="Current Value"/>
                     <Metric type = {documents[index].profitOrLoss} title="Profit/Loss"/>
                 </div>
+            </div>
+            <div className="container">
                 <div className="transaction-grid">
+                    <h3>Transaction History</h3>
+                    <div className="transaction-row">
+                        <p style={{fontWeight:'200'}}>Purchase Date</p>
+                        <p style={{fontWeight:'200'}}>Coins Purchased</p>
+                        <p style={{fontWeight:'200'}}>Purchase Price</p>
+                        <p style={{fontWeight:'200'}}>Total Cost</p>
+                    </div>
+            
                 {
-                   documents[index].transactions.map(m =>
+                documents[index].transactions.map(m =>
                     <TransactionRecord 
                         cryptoIndex ={index}
                         id={documents[index].id}
                         index = {count += 1}
                         date = {m.date} 
                         coins = {m.coins}
-                        price = {m.price}
                         cost = {m.cost}
-                        type = {m.type}
+                        price = {m.price}
+                        
                     />)
                 }
                 {documents && <TransactionForm crypto = {documents[index]} /> }
                 </div>
+            </div>
             </>
             }
         </>

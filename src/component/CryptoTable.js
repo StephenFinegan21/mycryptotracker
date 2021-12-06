@@ -31,9 +31,12 @@ const CryptoTable = () => {
                         cryptoId = {crypto.id}
                         cryptoValue = {crypto.currentValue}
                         cryptoProfit = {crypto.profitOrLoss}
+                        logo = {crypto.logo}
                     />))}
                 </table>
-                <CryptoForm userId = {user.uid}/>
+                <CryptoForm 
+                userId = {user.uid}
+                docs = {documents}/>
         </div>
     )
 }
