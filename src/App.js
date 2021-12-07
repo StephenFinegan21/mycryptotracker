@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import Rankings from './pages/Rankings';
+import News from './pages/News';
 import { useAuthContext } from './hooks/useAuthContext';
 
 
@@ -55,6 +56,10 @@ const { authIsReady, user } = useAuthContext()
             </Route>
             <Route exact path="/rankings">
               <Rankings />
+            </Route>
+
+            <Route exact path="/news">
+              <News />
             </Route>
             
           </Switch>
