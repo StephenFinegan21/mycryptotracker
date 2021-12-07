@@ -18,7 +18,7 @@ import { useRegister } from '../hooks/useRegister';
 
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { display } from '@mui/system';
+
 
 
 
@@ -54,16 +54,16 @@ const handleSubmit =(e) => {
     <ThemeProvider theme={theme}>
      <div className="grid-container">
        <div className="image-container">
-          <img src={myImage} className="landing-page-img"/>
+          <img src={myImage} className="landing-page-img" alt="landing-page-img"/>
        </div>
 
        <div className="form-container">
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Typography component="h1" variant="h4" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.dark, textAlign:'center' }}>Get Started</Typography>
-            <TextField id="standard-basic" label="First Name" variant="outlined" fullWidth type="text" margin="normal" id="firstName" onChange={ (e) => setFirstName(e.target.value)} value={firstName}/>
-            <TextField id="standard-basic" label="Last Name" variant="outlined" fullWidth type="tex" margin="normal" id="lastName" onChange={ (e) => setLastName(e.target.value)} value={lastName}/> 
-            <TextField id="standard-basic" label="email" variant="outlined" fullWidth type="email" margin="normal" id="email" onChange={ (e) => setEmail(e.target.value)} value={email} />
-            <TextField id="standard-basic" label="Password" variant="outlined" fullWidth type="password" margin="normal" id="password" onChange={ (e) => setPassword(e.target.value)} value={password} />
+            <TextField  label="First Name" variant="outlined" fullWidth type="text" margin="normal" id="firstName" onChange={ (e) => setFirstName(e.target.value)} value={firstName}/>
+            <TextField  label="Last Name" variant="outlined" fullWidth type="tex" margin="normal" id="lastName" onChange={ (e) => setLastName(e.target.value)} value={lastName}/> 
+            <TextField  label="email" variant="outlined" fullWidth type="email" margin="normal" id="email" onChange={ (e) => setEmail(e.target.value)} value={email} />
+            <TextField  label="Password" variant="outlined" fullWidth type="password" margin="normal" id="password" onChange={ (e) => setPassword(e.target.value)} value={password} />
             
             {!isPending &&<Button
                 type="submit"

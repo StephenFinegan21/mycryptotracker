@@ -1,5 +1,4 @@
 import React from 'react'
-import { useGetCryptosQuery } from '../services/cryptoApi';
 import { useGetNewsQuery } from '../services/newsAPI'
 import Article from '../component/Article';
 

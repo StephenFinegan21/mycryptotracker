@@ -101,15 +101,6 @@ const TransactionForm = ({ crypto }) => {
         */
 
 
-            if(crypto.profitOrLoss === NaN || crypto.costBasis === NaN ){
-               await updateRecord(crypto.id, {
-                    transactions: [...crypto.transactions, state],
-                    costBasis: 0,
-                    profitOrLoss: 0
-        
-                    
-               })
-            }
        //Reset the state if no errors
        
         if(!response.error){
@@ -154,7 +145,7 @@ const TransactionForm = ({ crypto }) => {
                         <input
                             required
                             placeholder="Price"
-                            type="number" min="1" step="any"
+                            type="number" min="1"
                             name="price"
                             min="0.00000"
                             step="0.00001"

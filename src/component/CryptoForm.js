@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useGetCryptosQuery } from '../services/cryptoApi'
 import Select from 'react-select'
-import { padding } from '@mui/system'
 
 const CryptoForm = ({ userId, docs }) => {
 
@@ -13,7 +12,7 @@ const CryptoForm = ({ userId, docs }) => {
     const [logo, setLogo] = useState(0)        //For setting name of Crypto
     const { addRecord , response } = useFirestore('cryptos')//access the hook that will allow to adda a new Crypto
 
-    const { data, isFetching } = useGetCryptosQuery();
+    const { data } = useGetCryptosQuery();
 
     
      const cryptoList = []

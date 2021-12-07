@@ -47,14 +47,14 @@ const handleSubmit =(e) => {
     <ThemeProvider theme={theme}>
      <div className="grid-container">
        <div className="image-container">
-          <img src={myImage} className="landing-page-img"/>
+          <img src={myImage} className="landing-page-img" alt="landing-page-img"/>
        </div>
 
        <div className="form-container">
           <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Typography component="h1" variant="h4" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.dark, textAlign:'center' }}>Welcome Back</Typography>
-            <TextField id="standard-basic" label="email" variant="outlined" fullWidth type="email" margin="normal"  id="email" onChange={ (e) => setEmail(e.target.value)} value={email}/>
-            <TextField id="standard-basic" label="Password" variant="outlined" fullWidth type="password" margin="normal"  id="password" onChange={ (e) => setPassword(e.target.value)} value={password} />
+            <TextField  label="email" variant="outlined" fullWidth type="email" margin="normal"  id="email" onChange={ (e) => setEmail(e.target.value)} value={email}/>
+            <TextField label="Password" variant="outlined" fullWidth type="password" margin="normal"  id="password" onChange={ (e) => setPassword(e.target.value)} value={password} />
             <Button
                 type="submit"
                 fullWidth

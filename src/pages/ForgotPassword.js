@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
 import { TextField } from '@mui/material';
@@ -36,7 +35,7 @@ export default function ForgotPassword() {
     <ThemeProvider theme={theme}>
      <div className="grid-container">
        <div className="image-container">
-          <img src={myImage} className="landing-page-img"/>
+          <img src={myImage} className="landing-page-img" alt="landing-page-img"/>
        </div>
 
        <div className="form-container">

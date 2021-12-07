@@ -2,7 +2,6 @@ import React from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useCollection } from ".././hooks/useCollection"
 import { useAuthContext } from ".././hooks/useAuthContext"
-import { useEffect } from 'react'
 
 const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, type}) => {
 
