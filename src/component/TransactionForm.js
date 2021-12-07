@@ -145,7 +145,7 @@ const TransactionForm = ({ crypto }) => {
                         <input
                             required
                             placeholder="Price"
-                            type="number" min="1"
+                            type="number" 
                             name="price"
                             min="0.00000"
                             step="0.00001"

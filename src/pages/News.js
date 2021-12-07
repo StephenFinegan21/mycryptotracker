@@ -6,17 +6,18 @@ const News = () => {
     const { data, isFetching } = useGetNewsQuery()
     if (isFetching) return "Loading"; //Wait until data finishes loading
     const articleData = (data.value.map(a => a))
-    console.log(articleData.map(a => a))
+    //console.log(articleData.map(a => a.image ? a.image.thumbnail.contentUrl : null))
 
     return (
         <>
         <div className="news-grid">
-            {articleData.map(a => 
+            {articleData && articleData.map(a => 
             <Article
                 heading={a.name}
                 link={a.url}
                 date={a.datePublished}
-                image={a.image.thumbnail.contentUrl}
+                image={a.image ? a.image.thumbnail.contentUrl : null}
+               
 
             />
             )}
