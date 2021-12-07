@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import Login from './pages/Login';
 import CssBaseline from '@mui/material/CssBaseline';
 import './App.scss';

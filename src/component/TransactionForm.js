@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFirestore } from '../hooks/useFirestore'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 
 //Pass in the selected Cryptocurrency as props

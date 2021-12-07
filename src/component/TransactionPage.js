@@ -1,11 +1,11 @@
-import {useState} from 'react'
+
 import { useLocation} from 'react-router-dom'
 import { useCollection } from ".././hooks/useCollection"
 import { useAuthContext } from ".././hooks/useAuthContext"
 import TransactionForm from './TransactionForm'
 import Metric from './Metric'
 import TransactionRecord from './TransactionRecord'
-import { fontWeight } from '@mui/system'
+
 
 
 
@@ -18,7 +18,7 @@ const TransactionPage = () => {
     let count = -1
     const {user} = useAuthContext()
 
-    const {documents, error} = useCollection(
+    const {documents} = useCollection(
         'cryptos',
         ["uid", "==", user.uid ])
     
@@ -37,7 +37,7 @@ const TransactionPage = () => {
              <div className="metric-container">
                  <div className="crypto-name-container">
                     <h4>My {documents[index].cryptoName } </h4>
-                    <img src = {documents[index].logo} className="image" />
+                    <img src = {documents[index].logo} className="image" alt="crypto logo" />
                 </div>
                 <div className="stat-container">
                     <Metric type = {documents[index].totalCoin} title="Total Coins"/>

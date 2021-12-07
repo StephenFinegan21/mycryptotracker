@@ -7,11 +7,11 @@ import { useEffect } from 'react'
 const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, type}) => {
 
     const {user} = useAuthContext()
-    const {documents, error} = useCollection(
+    const {documents} = useCollection(
         'cryptos',
         ["uid", "==", user.uid ])
     
-    const { updateRecord , response } = useFirestore('cryptos')
+    const { updateRecord  } = useFirestore('cryptos')
     //documents && console.log("price is " + (documents[cryptoIndex].currentPrice))
 
     const handleDelete = async (id, index) => {
@@ -25,7 +25,7 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         
         //New Array that will be shown once 'valueToDelete' is removed.
         const newArray = (documents[cryptoIndex].transactions.filter(n => {
-            return n != valueToDelete
+            return n !== valueToDelete
         }))
 
        //if(valueToDelete[0].type === 'Buy'){

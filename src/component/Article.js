@@ -13,7 +13,7 @@ const Article = ({ heading, date, image, link }) => {
 
 
             
-            <img src = {image} className="article-image"></img>
+            <img src = {image} className="article-image" alt="thumbnail"></img>
             
             
             
