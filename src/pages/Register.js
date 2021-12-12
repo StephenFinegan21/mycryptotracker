@@ -40,7 +40,7 @@ const [password, setPassword] = useState('')
 const [firstName, setFirstName] = useState('')
 const [lastName, setLastName] = useState('')
 
-const { register, isPending, errors} = useRegister()
+const { register, isPending, error} = useRegister()
 
 
 
@@ -74,7 +74,7 @@ const handleSubmit =(e) => {
                 Sign up
               </Button> }
               {isPending &&  <Button fullWidth variant="contained" sx={{ bgcolor:theme.palette.dark, mt: 3, mb: 2 }} > Registering </Button> }
-              { errors && <p>{errors}</p>}
+              { error && <p className="error-msg">{error}</p>}
               <Link to="/login" style={{ textDecoration: 'none' }}><Typography component="p" variant="p" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.purple, textAlign:'center' }}>Already registered? Log In</Typography></Link>
           </Box>
         </div>

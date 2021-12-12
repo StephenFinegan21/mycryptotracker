@@ -11,17 +11,13 @@ const CryptoRow = ({ cryptoName, cryptoId, cryptoValue, cryptoProfit, logo }) =>
        
         <tr>
             <td><img src={logo} className="crypto-logo" alt="crypto logo"></img></td>
-            
-            
-
-
-                    <td>
-                        <Link   to={`transactions/${cryptoId}`}   
-                                style={{ textDecoration: 'none', margin:'auto', color:'#222D41' }}>
-                                {cryptoName}</Link> </td>
+            <td>
+                <Link   to={`transactions/${cryptoId}`}   
+                        style={{ textDecoration: 'none', margin:'auto', color:'#222D41' }}>
+                        {cryptoName}</Link> </td>
             <td>{cryptoValue}</td>
             <td>{cryptoProfit}</td>
-            <td><button onClick={() => deleteRecord(cryptoId)}>X</button></td>
+            <td><button className="delete-btn" onClick={() => deleteRecord(cryptoId)}>X</button></td>
             
         </tr>
 

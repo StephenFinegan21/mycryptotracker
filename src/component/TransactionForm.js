@@ -81,9 +81,7 @@ const TransactionForm = ({ crypto }) => {
 
                 
                 
-            },console.log( 
-                (parseFloat(crypto.totalCost) + parseFloat(state.cost)) - ((parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice)
-                 ))
+            })
 
     
 

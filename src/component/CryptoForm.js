@@ -89,7 +89,7 @@ const CryptoForm = ({ userId, docs }) => {
 
     //If the crypto is added succesfully, reset the value to blank
     useEffect(() => {
-        console.log(response)
+        //console.log(response)
              
                  
                  setCryptoName('')
@@ -106,17 +106,16 @@ const CryptoForm = ({ userId, docs }) => {
             {data && 
             <div>
             <form onSubmit = {handleSubmit}>
-            <input type="submit" className="add-crypto-btn" />
+                
+                <p>Add a Crypto</p>
                 <Select
                     required
                     options={cryptoList}
                     onChange={(o) => handleSelect(o)}
                     styles={customStyles}
-                   
-                    
-                     
                 />
-                
+                <input type="submit" className="add-crypto-btn"/>
+               
             </form>
 
             </div>

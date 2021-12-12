@@ -65,7 +65,7 @@ const handleSubmit =(e) => {
                 Log In
               </Button>
               {isPending &&  <Button fullWidth variant="contained" sx={{ bgcolor:theme.palette.dark, mt: 3, mb: 2 }} > Logging In </Button> }
-              { error && <p>{error}</p>}
+              { error && <p className="error-msg">{error}</p>}
               <Link to="/forgotpassword" style={{ textDecoration: 'none', color:"white" }}><Typography component="p" variant="p" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.purple, textAlign:'center' }}>Forgot Password?</Typography></Link>
               <Link to="/register" style={{ textDecoration: 'none' }}><Typography component="p" variant="p" sx={{ fontWeight: 'bold', mb: 2, color:theme.palette.purple, textAlign:'center' }}>Register</Typography></Link>
           </Box>

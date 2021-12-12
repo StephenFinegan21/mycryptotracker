@@ -36,7 +36,7 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         updateRecord(id, {
             transactions: newArray,
             costBasis: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete[0].cost)) / (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)),
-            currentValue: [(parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)) * parseFloat(documents[cryptoIndex].currentValue)],
+            currentValue: (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)) * parseFloat(documents[cryptoIndex].currentPrice),
         })
         updateRecord(id, {
             transactions: newArray,

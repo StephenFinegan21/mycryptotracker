@@ -10,6 +10,7 @@ const News = () => {
 
     return (
         <>
+        <h2>Latest Crypto News</h2>
         <div className="news-grid">
             {articleData && articleData.map(a => 
             <Article
