@@ -52,10 +52,11 @@ const TransactionPage = () => {
                 <div className="transaction-grid">
                     <h3>Transaction History</h3>
                     <div className="transaction-row">
-                        <p style={{fontWeight:'200'}}>Purchase Date</p>
-                        <p style={{fontWeight:'200'}}>Coins Purchased</p>
-                        <p style={{fontWeight:'200'}}>Purchase Price</p>
-                        <p style={{fontWeight:'200'}}>Total Cost</p>
+                        <p style={{fontWeight:'400'}}>Purchase Date</p>
+                        <p style={{fontWeight:'400'}}>Coins Purchased</p>
+                        <p style={{fontWeight:'400'}}>Purchase Price</p>
+                        <p style={{fontWeight:'400'}}>Total Cost</p>
+                        <p style={{fontWeight:'400'}}>Transaction Type</p>
                     </div>
             
                 {
@@ -68,6 +69,7 @@ const TransactionPage = () => {
                         coins = {m.coins}
                         cost = {m.cost}
                         price = {m.price}
+                        type={m.type}
                         
                     />)
                 }

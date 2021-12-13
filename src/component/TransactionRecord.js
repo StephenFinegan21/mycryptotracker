@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState, React} from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useCollection } from ".././hooks/useCollection"
 import { useAuthContext } from ".././hooks/useAuthContext"
@@ -12,62 +12,83 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
     
     const { updateRecord  } = useFirestore('cryptos')
     //documents && console.log("price is " + (documents[cryptoIndex].currentPrice))
-
+   
+    
     const handleDelete = async (id, index) => {
-        
+       
         /* 
         Store the transaction to be deleted in 'valueToDelete'
         'index' is a prop passed into this component - holds the index position of each transactionrecord
         use splice to seperate the current index from rest of array
         */
-        const valueToDelete = (documents[cryptoIndex].transactions.splice(index, 1)) 
+        const valueToDelete = (documents[cryptoIndex].transactions[index]) 
+        console.log(valueToDelete)
+        
+
+        
         
         //New Array that will be shown once 'valueToDelete' is removed.
         const newArray = (documents[cryptoIndex].transactions.filter(n => {
             return n !== valueToDelete
         }))
 
-       //if(valueToDelete[0].type === 'Buy'){
-        updateRecord(id, {
-            transactions: newArray,
-            totalCoin: [parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)],
-            totalCost: [parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete[0].cost)],
-        })
-        updateRecord(id, {
-            transactions: newArray,
-            costBasis: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete[0].cost)) / (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)),
-            currentValue: (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)) * parseFloat(documents[cryptoIndex].currentPrice),
-        })
-        updateRecord(id, {
-            transactions: newArray,
-            profitOrLoss : ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)) * (documents[cryptoIndex].currentPrice))     -      ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete[0].coins)) * (documents[cryptoIndex].costBasis)) 
-        }, console.log(
-            isNaN((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete[0].cost)) / 0 ),
-        ))
-       //}
-       /*
-       else if(valueToDelete[0].type === 'Sell'){
-        updateRecord(id, {
+       
+
             
+
+       if(valueToDelete.type === 'Buy'){
+        if(( parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) < 0){
+            alert('Not enough coins remaining')
+            
+            
+            
+            //console.log(valueToDelete)
+            return
+            }
+            else{
+        updateRecord(id, {
             transactions: newArray,
-            totalCoin: [parseInt(documents[cryptoIndex].totalCoin) + parseInt(newValue[0].coins)],
-            totalCost: [parseInt(documents[cryptoIndex].totalCost) + parseInt(newValue[0].cost)],
-            costBasis: [(parseInt(documents[cryptoIndex].totalCost) + parseInt(newValue[0].cost)) / (parseInt(documents[cryptoIndex].totalCoin) + parseInt(newValue[0].coins))],
-            currentValue: [(parseInt(documents[cryptoIndex].totalCoin) + parseInt(newValue[0].coins)) * parseInt(documents[cryptoIndex].currentValue)]
+            totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)).toFixed(5),
+            totalCost: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5) < 0? 0: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5),
+        })
+        updateRecord(id, {
+            transactions: newArray,
+            costBasis: ((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)) / (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins))).toFixed(5),
+            currentValue: ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * parseFloat(documents[cryptoIndex].currentPrice)).toFixed(5),
+        })
+        updateRecord(id, {
+            transactions: newArray,
+            profitOrLoss : (((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].currentPrice))     -      ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].costBasis))).toFixed(5),
         })
        }
-       */
+    }
+       
+       else if(valueToDelete.type === 'Sell'){
+           
+           
+           
 
-       if(documents && isNaN(documents[cryptoIndex].costBasis)){
+           
         updateRecord(id, {
             transactions: newArray,
-            costBasis : 0 
+            totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)).toFixed(5) ,
+            totalCost: (parseFloat(documents[cryptoIndex].totalCost) + parseFloat(valueToDelete.cost)).toFixed(5)
         })
-    }
-    
+        updateRecord(id, {
+            transactions: newArray,
+            costBasis: ((parseFloat(documents[cryptoIndex].totalCost)) / (parseFloat(documents[cryptoIndex].totalCoin))).toFixed(5), 
+            currentValue: ((parseFloat(documents[cryptoIndex].totalCoin)) * parseFloat(documents[cryptoIndex].currentPrice)).toFixed(5)
+        })
+        updateRecord(id, {
+            transactions: newArray,
+            profitOrLoss : (((parseFloat(documents[cryptoIndex].totalCoin)) * (documents[cryptoIndex].currentPrice))     -      ((parseFloat(documents[cryptoIndex].totalCoin)) * (documents[cryptoIndex].costBasis))).toFixed(5)  
+        })
+        } 
+       
     
 
-    }
+       
+}
 
 
 
@@ -75,13 +96,15 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
        <>
             <div className="transaction-row">
                 <p>{date}</p>
-                <p>{coins}</p>
+                <p className={type === 'Buy' ? 'plus':'minus'}>{coins}</p>
                 <p>€{price}</p>
                 <p>€{cost}</p>
-    
+                <p className={type === 'Buy' ? 'plus':'minus'}>{type}</p>
+                
+                
                 <button onClick = {() => handleDelete(id, index)} className="delete-btn">X</button>
             </div>
-
+            
         </>
         
     )

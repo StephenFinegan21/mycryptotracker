@@ -236,13 +236,13 @@ tr:nth-of-type(even) {
     height: 80px;
     line-height: 80px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr .5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr .5fr;
     text-align: center;
 
     p{
         text-align: left;
         padding-left: 10%;
-        font-weight: 500;
+        font-weight: 300;
     }
 
 }
@@ -261,35 +261,55 @@ tr:nth-of-type(even) {
 .delete-btn {
     color: #e73168;
     background:none;
-    font-weight: 900;
-    margin: 10%;
+    font-weight: 400;
+    
     border: none;
     cursor: pointer;
-    font-size: 2rem;
+    
 }
 
 
 .form-container{
     
-    width: 80%;
+    width: 90%;
     margin:  5% auto;
-    background-color: #ffffff;
+    
 }
 
 .transaction-form{
     width: 100%;
-    
     margin: 0;
-}
+    background-color: $lightColour;
 
+    
+}
+.btn-container{
+    text-align: center;
+    margin: auto;
+    width: 40%;
+   
+    padding: 5%;
+
+    input{
+       
+        padding: 5% 10%;
+        border: none;
+        box-shadow: none;
+        background-color: $purpleColour;
+        color: $lightColour;
+    }
+}
 
 
 .form{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr  .5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr  1fr;
+    background-color: #ffffff;
+    width: 100%;
   
     input{
        height: 50px;
+       
         border: none;
         text-align: center;
     }
@@ -374,6 +394,14 @@ tr:nth-of-type(even) {
     
 }
 
+
+.plus{
+    color: green;
+}
+
+.minus{
+    color: red;
+}
 
 
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useState } from 'react'
+import Select from 'react-select'
 
 
 //Pass in the selected Cryptocurrency as props
@@ -15,12 +16,41 @@ const TransactionForm = ({ crypto }) => {
         coins: "",
         price: "",
         cost: "",
-        type: "",
+        type: "Select Type",
       })
 
+      const customStyles = {
+
+        container:(provided, state) => ({
+            ...provided,
+            paddingTop: '2%',
+            width : '100%',
+            margin:'auto',
+        }),
+
+        option:(provided) => ({
+            ...provided,
+            width : '100%',
+            margin:'auto',
+            
+        }),
+        
+      
+        control:(provided, state) => ({
+            ...provided,
+            width : '100%',
+            margin:'auto'
+        }),
+
+
+      }
+
+
+      const [error, setError] = useState()
       //To be used if allowing users to add 'sell' records
-      /*
+      
       const transactionTypes = [
+        {value: '', label: 'Transaction Type'},
           {value: 'Buy', label: 'buy'},
           {value: 'Sell', label: 'sell'}
       ] 
@@ -29,7 +59,7 @@ const TransactionForm = ({ crypto }) => {
           ...state,
           type: option
         });
-      }*/
+      }
 
 
 
@@ -46,30 +76,22 @@ const TransactionForm = ({ crypto }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        //if(state.type === 'Buy'){
+        setError('')
+        if(state.type === 'Buy'){
 
             //pass in the (1) crypto id and the (2) data to be updated
             await updateRecord(crypto.id, {
             
-                //Current state - which is the last data to be entered into form is added into the transactions array
+            //Current state - which is the last data to be entered into form is added into the transactions array
                 transactions: [...crypto.transactions, state],
-
-                totalCoin: [parseFloat(crypto.totalCoin) + parseFloat(state.coins)],
-                totalCost: [parseFloat(crypto.totalCost) + parseFloat(state.cost)],
-                
-                
-                
-                
-            },console.log('one'))
-
+                totalCoin: (parseFloat(crypto.totalCoin) + parseFloat(state.coins)).toFixed(5),
+                totalCost: (parseFloat(crypto.totalCost) + parseFloat(state.cost)).toFixed(5),
+            },console.log(crypto.totalCoin))
             await updateRecord(crypto.id, {
-            
                 //Current state - which is the last data to be entered into form is added into the transactions array
                 transactions: [...crypto.transactions, state],
-
-                
-                costBasis: [(parseFloat(crypto.totalCost) + parseFloat(state.cost)) / (parseFloat(crypto.totalCoin) + parseFloat(state.coins))],
-                currentValue: [(parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice],
+                costBasis: ((parseFloat(crypto.totalCost) + parseFloat(state.cost)) / (parseFloat(crypto.totalCoin) + parseFloat(state.coins))).toFixed(5),
+                currentValue: ((parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice).toFixed(5),
                
                 
                 
@@ -77,27 +99,62 @@ const TransactionForm = ({ crypto }) => {
             await updateRecord(crypto.id, {
             
                 transactions: [...crypto.transactions, state],
-                profitOrLoss: ((parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice) - (parseFloat(crypto.totalCost) + parseFloat(state.cost))
-
-                
-                
+                profitOrLoss: (((parseFloat(crypto.totalCoin) + parseFloat(state.coins)) * crypto.currentPrice) - (parseFloat(crypto.totalCost) + parseFloat(state.cost))).toFixed(5),
             })
 
     
 
-        //}
-        /*else if(state.type === 'Sell'){
+        }
+        else if(state.type === 'Sell'){
+            if((parseFloat(crypto.totalCoin) - parseFloat(state.coins) < 0)){
+                console.log('not enough coins')
+                setError('not enough coins')
+                    return
+                }
+            
+            else{
+
+            await updateRecord(crypto.id, {
+            
+                //Current state - which is the last data to be entered into form is added into the transactions array
+                transactions: [...crypto.transactions, state],
+
+                totalCoin: (parseFloat(crypto.totalCoin) - parseFloat(state.coins)).toFixed(5),
+                totalCost: (parseFloat(crypto.totalCost) - parseFloat(state.cost)).toFixed(5)
+                
+                
+                
+                
+            })
+
+            await updateRecord(crypto.id, {
+            
+                //Current state - which is the last data to be entered into form is added into the transactions array
+                transactions: [...crypto.transactions, state],
+
+                
+                costBasis: ((parseFloat(crypto.totalCost) - parseFloat(state.cost)) / (parseFloat(crypto.totalCoin) - parseFloat(state.coins))).toFixed(5),
+                currentValue: ((parseFloat(crypto.totalCoin) - parseFloat(state.coins)) * crypto.currentPrice).toFixed(5),
+               
+                
+                
+            })
             await updateRecord(crypto.id, {
             
                 transactions: [...crypto.transactions, state],
-                totalCoin: [parseInt(crypto.totalCoin) - parseInt(state.coins)],
-                
-                costBasis: [(parseInt(crypto.totalCost) - parseInt(state.cost)) / (parseInt(crypto.totalCoin) - parseInt(state.coins))],
-                currentPrice: 10,
-                currentValue: [(parseInt(crypto.totalCoin) - parseInt(state.coins)) * crypto.currentPrice],
-            })
-        */
+                profitOrLoss: ((((parseFloat(crypto.totalCoin) - parseFloat(state.coins))) * crypto.currentPrice) - (parseFloat(crypto.totalCost) - parseFloat(state.cost))).toFixed(4),
 
+                
+                
+            })
+            
+        }
+        
+        }
+        else{
+            alert('Choose either a Buy or Sell Transaction type')
+        }
+       
 
        //Reset the state if no errors
        
@@ -107,9 +164,10 @@ const TransactionForm = ({ crypto }) => {
                    coins: "",
                    price: "",
                    cost: "",
-                   type: "",
+                   type: "Select Type",
                  })
                } 
+              
     }
 
 
@@ -117,7 +175,8 @@ const TransactionForm = ({ crypto }) => {
         <>
         <div className="form-container">
             <div className="transaction-form">
-                <form onSubmit={handleSubmit} className="form">
+                <form onSubmit={handleSubmit}>
+                    <div  className="form">
                     <div>
                         <input 
                             required
@@ -133,7 +192,7 @@ const TransactionForm = ({ crypto }) => {
                             placeholder="Coins"
                             type="number"
                             name="coins"
-                            min="0.00000"
+                            min="0.00001"
                             step="0.00001"
                             value={state.coins}
                             onChange={handleChange}
@@ -145,7 +204,7 @@ const TransactionForm = ({ crypto }) => {
                             placeholder="Price"
                             type="number" 
                             name="price"
-                            min="0.00000"
+                            min="0.00001"
                             step="0.00001"
                             value={state.price}
                             onChange={handleChange}
@@ -157,21 +216,27 @@ const TransactionForm = ({ crypto }) => {
                             placeholder="Cost"
                             type="number"
                             name="cost"
-                            min="0.00000"
+                            min="0.00001"
                             step="0.00001"
                             value={state.cost}
                             onChange={handleChange}
                         />
                     </div>
-                    {/*
+                    
                     <div>
                         <Select
+                        className="select"
                         options={transactionTypes}
-                        onChange={(o) => handleSelect(o.value)}  />
+                        onChange={(o) => handleSelect(o.value)}
+                        styles={customStyles} />
+                        
                     </div>
-                    */}
-              
-                <input type="submit" />
+                </div> 
+                    {error && <p>{error}</p>}
+                <div className="btn-container">
+                    <input type="submit" />
+                    
+                </div>
            </form>
         </div>
     </div>
