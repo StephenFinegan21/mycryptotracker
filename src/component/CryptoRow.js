@@ -16,7 +16,7 @@ const CryptoRow = ({ cryptoName, cryptoId, cryptoValue, cryptoProfit, logo }) =>
                 <img src={logo} className="crypto-logo" alt="crypto logo"></img>
             </div>
             <p><Link to={`transactions/${cryptoId}`}   
-                    style={{ textDecoration: 'none' }}>
+                   >
                     {cryptoName}
                 </Link>
             </p>

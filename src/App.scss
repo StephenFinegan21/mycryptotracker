@@ -46,7 +46,7 @@ body{
 /* Nav for Dashboard, mews and rankings */
 .dark-navbar{
     width: 100%;
-    background-color: $darkColour;
+    background-color: $purpleColour;
     height: 80px;
 
     ul{
@@ -194,6 +194,7 @@ body{
     a{
         color: white;
         font-weight: 400;
+        text-decoration: underline;
     }
 }
 
@@ -363,7 +364,7 @@ body{
 }
 
 
-.form-container{
+.transaction-form-container{
     
     width: 100%;
     margin:  5% auto;
@@ -425,7 +426,7 @@ body{
     width: 100%;
     margin:auto;
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr  1fr 1fr 1fr;
     line-height: 90px;
    
   }
@@ -440,6 +441,12 @@ body{
 
 }
 
+.ranking-select-container{
+    width: 30%;
+    margin: auto;
+    margin-bottom: 5%;
+}
+
 
 
 
@@ -447,42 +454,49 @@ body{
 
 .news-grid{
     
-    width: 60%;
+    width: 80%;
     margin: auto;
 }
 
 .article{
     
    
-    
-    padding: 2%;
+    width: 80%;
+    padding: 5%;
     box-shadow: 11px 13px 19px -2px rgba(117,117,117,0.33);
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin: 10% auto;
+  
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    
+    transition: background-color .3s;
     
     
-    ;
+    h3{
+    text-align: left;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: color .3s;
+      margin-bottom: 2%;
+    }
 
 
     p{
-      text-align: left;
-      font-size: 1.2rem;
-      font-weight: 400;
-      
+      font-weight: 300;
+      color: #464646;
+      font-size: 1.1rem;
+      transition: color .3s;
      
     }
 
     #date{
-        margin-top: 10%;
-        font-weight: 800;
-    }
+       
+        font-size: .8;
+        }
+   
 
     img{
-        width: 80%;
-        height: 150px;
-        border-radius: 10px;
+        
+        border-radius: 30px;
         text-align: center;
         
     }
@@ -491,7 +505,54 @@ body{
         text-decoration: none;
         color: $darkColour;
     }
+
+    .about{
+        width: fit-content;
+        padding: 7px 12px;
+        background-color: $purpleColour;
+        border-radius: 40px;
+        color: white;
+        margin-left: 10px;
+        height: 40px;
+    }
+
+    .article-information{
+        display: grid;
+        grid-template-columns: 1fr 1fr ;
+        margin-top: 6%;
+        
+        
+    }
+    .about-indicators{
+        display: flex;
+        align-items:flex-end;
+       margin-left: auto;
+        
+        
+    }
     
+}
+
+
+.article:hover{
+    background-color: rgb(137, 121, 226);
+    color: white;
+    h3{
+        color: white;
+        text-decoration: underline;
+    }
+    p{
+        color: white;
+        font-weight: 400;
+        
+    }
+    
+   
+    
+}
+
+#article-link:hover{
+    text-decoration: underline;
 }
 
 

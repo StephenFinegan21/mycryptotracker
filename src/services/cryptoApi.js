@@ -17,10 +17,11 @@ export const cryptoApi = createApi({
   endpoints: (builder) => ({
     getCryptos: builder.query({
       query: () => createRequest(`coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false`),
-    })
+    }),
+    
   
     
   }),
 });
 
-export const { useGetCryptosQuery } = cryptoApi;
+export const { useGetCryptosQuery, useGetAthQuery } = cryptoApi;

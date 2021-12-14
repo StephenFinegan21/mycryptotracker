@@ -8,7 +8,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { InputLabel } from '@mui/material';
 import { FormControl } from '@mui/material';
-import { height } from '@mui/system';
+
 
 
 //Pass in the selected Cryptocurrency as props
@@ -157,7 +157,7 @@ const TransactionForm = ({ crypto }) => {
 
     return (
         <>
-        <div className="form-container">
+        <div className="transaction-form-container">
             <div className="transaction-form">
                 <form onSubmit={handleSubmit}>
                     <div  className="form">
