@@ -1,8 +1,8 @@
-import {useState, React} from 'react'
+import { React} from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useCollection } from ".././hooks/useCollection"
 import { useAuthContext } from ".././hooks/useAuthContext"
-import DeleteIcon from '@mui/icons-material/Delete';
+
 import ClearIcon from '@mui/icons-material/Clear';
 
 
@@ -25,7 +25,7 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         use splice to seperate the current index from rest of array
         */
         const valueToDelete = (documents[cryptoIndex].transactions[index]) 
-        console.log(valueToDelete)
+       
         
 
         

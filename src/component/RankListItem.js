@@ -1,12 +1,7 @@
 import React from 'react'
 import millify from 'millify'
 
-/*
-{metric === 'total_volume' ? <p>€ {vol} </p> :null}
-        {metric === 'price_change_24h' ? <p>€ {price} </p> :null}
-        {metric === 'market_cap' ? <p>€ {cap} </p> :null}
-        {metric === 'ath' ? <p>€ {ath} </p> :null}
-        </div>*/
+
 
 const RankListItem = ( { name, logo, price, vol, change, cap, ath }) => {
     return (
