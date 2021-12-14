@@ -1,7 +1,14 @@
 import React from 'react'
 import { useFirestore } from '../hooks/useFirestore'
-import { useState } from 'react'
-import Select from 'react-select'
+import { useState } from 'react';
+//import Select from 'react-select'
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { InputLabel } from '@mui/material';
+import { FormControl } from '@mui/material';
+import { height } from '@mui/system';
 
 
 //Pass in the selected Cryptocurrency as props
@@ -16,49 +23,25 @@ const TransactionForm = ({ crypto }) => {
         coins: "",
         price: "",
         cost: "",
-        type: "Select Type",
+        type: "",
       })
 
-      const customStyles = {
-
-        container:(provided, state) => ({
-            ...provided,
-            paddingTop: '2%',
-            width : '100%',
-            margin:'auto',
-        }),
-
-        option:(provided) => ({
-            ...provided,
-            width : '100%',
-            margin:'auto',
-            
-        }),
-        
-      
-        control:(provided, state) => ({
-            ...provided,
-            width : '100%',
-            margin:'auto'
-        }),
+    
 
 
-      }
 
 
       const [error, setError] = useState()
+      
       //To be used if allowing users to add 'sell' records
       
-      const transactionTypes = [
-        {value: '', label: 'Transaction Type'},
-          {value: 'Buy', label: 'buy'},
-          {value: 'Sell', label: 'sell'}
-      ] 
-      const handleSelect = async (option) =>{
+      
+      const handleSelect = (option) =>{
         setState({
-          ...state,
-          type: option
-        });
+            ...state,
+            type: option.target.value
+          });
+          
       }
 
 
@@ -72,6 +55,7 @@ const TransactionForm = ({ crypto }) => {
           ...state,
           [evt.target.name]: value
         });
+        
       }
 
     const handleSubmit = async (e) => {
@@ -164,7 +148,7 @@ const TransactionForm = ({ crypto }) => {
                    coins: "",
                    price: "",
                    cost: "",
-                   type: "Select Type",
+                   type: "",
                  })
                } 
               
@@ -178,8 +162,18 @@ const TransactionForm = ({ crypto }) => {
                 <form onSubmit={handleSubmit}>
                     <div  className="form">
                     <div>
+                    <LocalizationProvider 
+                    dateAdapter={AdapterDateFns}
+                    required
+                            
+                            name="date"
+                            value={state.date}
+                            onChange={handleChange}
+                            >
+                    </LocalizationProvider>
+
                         <input 
-                            required
+                            
                             type="date"
                             name="date"
                             value={state.date}
@@ -214,6 +208,7 @@ const TransactionForm = ({ crypto }) => {
                         <input
                             required
                             placeholder="Cost"
+                            
                             type="number"
                             name="cost"
                             min="0.00001"
@@ -224,17 +219,30 @@ const TransactionForm = ({ crypto }) => {
                     </div>
                     
                     <div>
-                        <Select
-                        className="select"
-                        options={transactionTypes}
-                        onChange={(o) => handleSelect(o.value)}
-                        styles={customStyles} />
-                        
+                        <FormControl fullWidth>
+                            <InputLabel 
+                            id="select-label"
+                            sx={{marginTop: '8%'}}
+                            >Type</InputLabel>
+                            <Select
+                               sx={{height: '80px'}}
+                                labelId="select-label"
+                                id="select-label"
+                                value={state.type}
+                                label="Type"
+                                onChange={(e) => handleSelect(e)}
+                                >
+                            <MenuItem value={'Buy'}>Buy</MenuItem>
+                            <MenuItem value={'Sell'}>Sell</MenuItem>
+          
+                            </Select>
+                        </FormControl>
                     </div>
                 </div> 
                     {error && <p>{error}</p>}
                 <div className="btn-container">
-                    <input type="submit" />
+                    <button type="submit" className="submit-btn" >Add Transaction</button>
+                    
                     
                 </div>
            </form>

@@ -2,6 +2,9 @@ import {useState, React} from 'react'
 import { useFirestore } from '../hooks/useFirestore'
 import { useCollection } from ".././hooks/useCollection"
 import { useAuthContext } from ".././hooks/useAuthContext"
+import DeleteIcon from '@mui/icons-material/Delete';
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, type}) => {
 
@@ -49,7 +52,7 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         updateRecord(id, {
             transactions: newArray,
             totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)).toFixed(5),
-            totalCost: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5) < 0? 0: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5),
+            totalCost: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5) < 0? 0: ((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5)),
         })
         updateRecord(id, {
             transactions: newArray,
@@ -102,7 +105,7 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
                 <p className={type === 'Buy' ? 'plus':'minus'}>{type}</p>
                 
                 
-                <button onClick = {() => handleDelete(id, index)} className="delete-btn">X</button>
+                <button onClick = {() => handleDelete(id, index)} className="delete-btn"><ClearIcon/></button>
             </div>
             
         </>

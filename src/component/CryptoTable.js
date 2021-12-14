@@ -14,15 +14,15 @@ const CryptoTable = () => {
          'cryptos',
          ["uid", "==", user.uid ])
 
+        //Capitalise
+         const userName = user.displayName.charAt(0).toUpperCase() + user.displayName.slice(1);
+        
     return (
+        <>
+        
         <div className="crypto-grid">
-                <table>
-                    <tr>
-                        <th>Logo</th>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Profit/Loss</th>
-                    </tr>
+        <h1 style={{textAlign:'left', paddingLeft:'70px'}}>{userName}'s Dashboard</h1>
+                  
                     {error && <p>error</p>}
                     {documents && documents.map((crypto) => ( 
                     <CryptoRow 
@@ -33,11 +33,13 @@ const CryptoTable = () => {
                         cryptoProfit = {crypto.profitOrLoss}
                         logo = {crypto.logo}
                     />))}
-                </table>
+                
                 <CryptoForm 
+                
                 userId = {user.uid}
                 docs = {documents}/>
         </div>
+    </>
     )
 }
 

@@ -104,17 +104,17 @@ const CryptoForm = ({ userId, docs }) => {
         <>
 
             {data && 
-            <div>
+            <div className="crypto-form-container">
             <form onSubmit = {handleSubmit}>
                 
-                <p>Add a Crypto</p>
+                <h3>Add a Crypto</h3>
                 <Select
                     required
                     options={cryptoList}
                     onChange={(o) => handleSelect(o)}
                     styles={customStyles}
                 />
-                <input type="submit" className="add-crypto-btn"/>
+                <input type="submit" className="submit-btn"/>
                
             </form>
 
