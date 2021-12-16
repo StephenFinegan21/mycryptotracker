@@ -60,7 +60,7 @@ const Rankings = () => {
                             </Select>
                         </FormControl>
                         </div> 
-     <div className="list-item">
+     <div className="list-item" id="ranking-headers">
                 
                         <p></p>
                         <p>Name</p>

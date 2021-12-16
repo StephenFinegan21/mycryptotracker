@@ -19,7 +19,7 @@ ReactDOM.render(
         <Provider  store={Store}>
           <AuthContextProvider>
           <App />
-      </AuthContextProvider>
+          </AuthContextProvider>
       </Provider>
      
      

@@ -21,7 +21,7 @@ const CryptoRow = ({ cryptoName, cryptoId, cryptoValue, cryptoProfit, logo }) =>
                 </Link>
             </p>
                 <p>{cryptoValue}</p>
-                <p className={cryptoProfit > -1 ? 'plus':'minus'}>{cryptoProfit}</p>
+                <p className={cryptoProfit >= 0 ? 'plus':'minus'}>{cryptoProfit ? cryptoProfit : 0}</p>
                 <button className="delete-btn" onClick={() => deleteRecord(cryptoId)}><ClearIcon /></button>
             
         </div>

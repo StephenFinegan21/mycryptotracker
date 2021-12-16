@@ -13,7 +13,7 @@ const RankListItem = ( { name, logo, price, vol, change, cap, ath }) => {
         <p>{millify(cap)}</p>
         <p>{millify(vol)}</p>
         <p>{millify(ath)}</p>
-        <p className={change > -1 ? 'plus':'minus'}>{millify(change)}</p>
+        <p className={change >= -0 ? 'plus':'minus'}>{millify(change)}</p>
         <p>{millify(price)}</p>
         
         
