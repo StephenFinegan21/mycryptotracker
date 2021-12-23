@@ -26,10 +26,6 @@ const TransactionForm = ({ crypto }) => {
         type: "",
       })
 
-    
-
-
-
 
       const [error, setError] = useState()
       
@@ -225,7 +221,7 @@ const TransactionForm = ({ crypto }) => {
                             sx={{marginTop: '8%'}}
                             >Type</InputLabel>
                             <Select
-                               sx={{height: '80px'}}
+                               sx={{height: '60px'}}
                                 labelId="select-label"
                                 id="select-label"
                                 value={state.type}
