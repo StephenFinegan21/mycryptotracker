@@ -12,7 +12,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 
 
 import {
-  BrowserRouter,
+  HashRouter,
   Switch,
   Route, Redirect
 } from "react-router-dom";
@@ -25,7 +25,7 @@ const { authIsReady, user } = useAuthContext()
   return (
     <div className="App">
       {authIsReady && (
-      <BrowserRouter>
+      <HashRouter>
      
       <Nav />
       
@@ -63,7 +63,7 @@ const { authIsReady, user } = useAuthContext()
             </Route>
             
           </Switch>
-      </BrowserRouter>
+      </HashRouter>
       )}
     </div>
   );
