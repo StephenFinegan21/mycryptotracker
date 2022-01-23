@@ -6,9 +6,6 @@ import TransactionForm from './TransactionForm'
 import Metric from './Metric'
 import TransactionRecord from './TransactionRecord'
 
-
-
-
 const TransactionPage = () => {
 
     //The id of the Current Crypto that is in the Route
@@ -28,7 +25,9 @@ const TransactionPage = () => {
     2. compares the id of each crypt in the array to the id that is in the current route path (locationId)
     3. If a match stores the index of the match in 'index */
     const index = documents && documents.findIndex( (element) => element.id === locationId);
-    //console.log(documents && documents[index].transactions)
+    //console.log(documents && documents[index])
+    //console.log(documents && documents[index].profitOrLoss)
+    const logo = (documents && documents[index].logo)
 
   
     return (<>  
@@ -36,8 +35,9 @@ const TransactionPage = () => {
              <>
              <div className="metric-container">
                  <div className="crypto-name-container">
+                 <img src = {logo} className="image" alt="crypto logo" />
                     <h4>My {documents[index].cryptoName } </h4>
-                    <img src = {documents[index].logo} className="image" alt="crypto logo" />
+                    
                 </div>
                 <div className="stat-container">
                     <Metric type = {documents[index].totalCoin} title="Total Coins"/>
@@ -60,8 +60,9 @@ const TransactionPage = () => {
                     </div>
             
                 {
-                documents[index].transactions.map(m =>
+                documents[index].transactions.map( (m, transactionIndex) =>
                     <TransactionRecord 
+                    key = {transactionIndex}
                         cryptoIndex ={index}
                         id={documents[index].id}
                         index = {count += 1}
@@ -71,8 +72,10 @@ const TransactionPage = () => {
                         price = {m.price}
                         type={m.type}
                         
-                    />)
+                    /> )
+                    
                 }
+                
                 {documents && <TransactionForm crypto = {documents[index]} /> }
                 </div>
             </div>
@@ -80,27 +83,7 @@ const TransactionPage = () => {
             }
         </>
      
-
-
-            
-           
-            
-            
-        
-        
-
-        
-
-          
-       
-    )
+)
     }
-
-   
-  
-  
-      
-    
-
 
 export default TransactionPage

@@ -2,7 +2,7 @@ import { useReducer, useEffect, useState } from "react";
 import { cryptoFirestore } from "../firebase/config";
 
 
-//The init state will be null, will be updated ;ater on using the reducer
+//The init state will be null, will be updated later on using the reducer
 let initialState = {
     record: null,
     isPending: false,
@@ -47,7 +47,7 @@ export const useFirestore = (collection) => {
             dispatch(action)
         }
     }
-
+    //Adding a new crypto to user portfolio
     const addRecord = async (doc) => {
         dispatch({type: 'IS_PENDING'})
 
@@ -59,7 +59,7 @@ export const useFirestore = (collection) => {
             dispatchIfnotCancelled( {type: 'ERROR', payload: errorMsg.message})
         }
     }
-
+    //For deleting Cryptocurrencies from a user portfolio
     const deleteRecord = async (id) => {
         dispatch({type: 'IS_PENDING'})
 
@@ -71,7 +71,7 @@ export const useFirestore = (collection) => {
              dispatchIfnotCancelled( {type: 'ERROR', payload: errorMsg.message})
          }
      }
-
+     /* -- Using updateRecord instead (see below)
      const deleteTransaction = async (id, index) => {
         dispatch({type: 'IS_PENDING'})
 
@@ -84,8 +84,9 @@ export const useFirestore = (collection) => {
              dispatchIfnotCancelled( {type: 'ERROR', payload: errorMsg.message})
          }
      }
+     */
 
-
+     // For deleting transactions 
      const updateRecord = async (id, updatedData) => {
         dispatch({type: 'IS_PENDING'})
 
@@ -105,5 +106,5 @@ export const useFirestore = (collection) => {
         return () => setIsCancelled(true)
     }, [])
 
-    return {addRecord, updateRecord,  deleteRecord, deleteTransaction, response}
+    return {addRecord, updateRecord,  deleteRecord,  response}
 }

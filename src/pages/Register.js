@@ -1,25 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-
 import { TextField } from '@mui/material';
-
-
 import Box from '@mui/material/Box';
 import myImage from '../assets/Register-image.png';
 import { Link } from 'react-router-dom'
-
 import { useRegister } from '../hooks/useRegister';
-
-
-
-
-
-
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
 
 
 const theme = createTheme({
@@ -42,11 +30,9 @@ const [lastName, setLastName] = useState('')
 
 const { register, isPending, error} = useRegister()
 
-
-
 const handleSubmit =(e) => {
   e.preventDefault()
-  register(email, password, firstName)
+  register(email, password, firstName) //Calls the useregister hook and sends password, firstname
 }
   
 

@@ -1,3 +1,4 @@
+//Hook which gets the Crypto collection from Firebase
 import { useEffect, useState, useRef } from "react";
 import { cryptoFirestore } from "../firebase/config";
 

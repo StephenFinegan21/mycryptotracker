@@ -6,16 +6,8 @@ import myImage from '../assets/login-img.png';
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
-
-
-
-
-
-
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
 
 
 const theme = createTheme({
@@ -38,9 +30,7 @@ const { login, error, isPending } = useLogin()
 const handleSubmit =(e) => {
   e.preventDefault()
   login(email, password)
-  
-
-}
+  }
   
 
   return (

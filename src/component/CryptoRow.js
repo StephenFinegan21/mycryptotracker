@@ -6,17 +6,15 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 
 const CryptoRow = ({ cryptoName, cryptoId, cryptoValue, cryptoProfit, logo }) => {
-    const {deleteRecord } = useFirestore('cryptos')
+const {deleteRecord } = useFirestore('cryptos')
     
     return (
        <>
-       
-        <div class="crypto-row">
-            <div class="logo-container">
+       <div className="crypto-row">
+            <div className="logo-container">
                 <img src={logo} className="crypto-logo" alt="crypto logo"></img>
             </div>
-            <p><Link to={`transactions/${cryptoId}`}   
-                   >
+            <p><Link to={`transactions/${cryptoId}`}>
                     {cryptoName}
                 </Link>
             </p>
@@ -25,9 +23,7 @@ const CryptoRow = ({ cryptoName, cryptoId, cryptoValue, cryptoProfit, logo }) =>
                 <button className="delete-btn" onClick={() => deleteRecord(cryptoId)}><ClearIcon /></button>
             
         </div>
-
-
-       </>
+        </>
     )
 }
 

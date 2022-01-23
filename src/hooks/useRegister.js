@@ -34,7 +34,7 @@ export const useRegister = () => {
             }
 
         }
-        //catch
+        
         catch(errorMsg){
             if(!isCancelled){
              console.log(errorMsg.message)

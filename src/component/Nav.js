@@ -9,9 +9,10 @@ const Nav = () => {
     const { user } = useAuthContext()
 
     
-
+    
     return (
         <>
+        {/*Nav bar shown to NOT logged in users*/}
         {!user &&
             <div className="navbar" >
                 <ul>
@@ -22,23 +23,20 @@ const Nav = () => {
             </div>
         }
 
-
+        {/*Nav bar shown to logged in users*/}
         {user &&
             <div className="dark-navbar" >
+                <p className="logo"></p>
                 <ul>
-                    <li><Link to="/news" style={{ textDecoration: 'none' }}>News</Link></li>
                     <li><Link to="/dashboard" style={{ textDecoration: 'none'}}>Dashboard</Link></li>
+                    <li><Link to="/news" style={{ textDecoration: 'none' }}>News</Link></li>
                     <li><Link to="/Rankings" style={{ textDecoration: 'none'}}>Rankings</Link></li>
-                    <li onClick={logout}><Link to="/login" style={{ textDecoration: 'none'}}>Logout</Link></li>
+                    <li onClick={logout}><Link to="/login" className='logout-btn'>Logout</Link></li>
                 </ul>
             </div>
     
         }           
-       
-
-
-
-        </>
+     </>
     )
 }
 

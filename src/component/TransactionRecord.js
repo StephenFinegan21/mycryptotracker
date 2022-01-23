@@ -15,6 +15,33 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
     
     const { updateRecord  } = useFirestore('cryptos')
     //documents && console.log("price is " + (documents[cryptoIndex].currentPrice))
+
+    const removeBuy = async (newArray, valueToDelete) =>{
+          //updateRecord takes 2 args - id of the crypto to update , values to update
+           await updateRecord(id, {
+                transactions: newArray,
+                totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)).toFixed(5),
+                totalCost: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5) ,//< 0? 0: ((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5)),
+                costBasis: ((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)) / (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins))).toFixed(5),
+                currentValue: ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * parseFloat(documents[cryptoIndex].currentPrice)).toFixed(5),
+                profitOrLoss : (((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].currentPrice))     -      ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].costBasis))).toFixed(5),
+            })          
+      }
+
+      const removeSell = async (newArray, valueToDelete) =>{
+        //updateRecord takes 2 args - id of the crypto to update , values to update
+         await updateRecord(id, {
+            transactions: newArray,
+            totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)).toFixed(5) ,
+            totalCost: (parseFloat(documents[cryptoIndex].totalCost) + parseFloat(valueToDelete.cost)).toFixed(5),
+            costBasis: (parseFloat(documents[cryptoIndex].totalCost) + parseFloat(valueToDelete.cost)) / (parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)).toFixed(5) ,
+            currentValue: ((parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)) * parseFloat(documents[cryptoIndex].currentPrice)).toFixed(5),
+            profitOrLoss : (((parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].currentPrice))     -    
+              ((parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)) * 
+              (parseFloat(documents[cryptoIndex].totalCost) + parseFloat(valueToDelete.cost)) / (parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)).toFixed(5)))
+
+          })          
+    }
    
     
     const handleDelete = async (id, index) => {
@@ -26,72 +53,29 @@ const TransactionRecord = ({ cryptoIndex, id, index, date, coins, price, cost, t
         */
         const valueToDelete = (documents[cryptoIndex].transactions[index]) 
        
-        
-
-        
-        
-        //New Array that will be shown once 'valueToDelete' is removed.
+         //New Array that will be shown once 'valueToDelete' is removed.
         const newArray = (documents[cryptoIndex].transactions.filter(n => {
             return n !== valueToDelete
         }))
 
-       
-
-            
-
        if(valueToDelete.type === 'Buy'){
         if(( parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) < 0){
             alert('Not enough coins remaining')
-            
-            
-            
-            //console.log(valueToDelete)
             return
             }
             else{
-        updateRecord(id, {
-            transactions: newArray,
-            totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)).toFixed(5),
-            totalCost: (parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5) < 0? 0: ((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)).toFixed(5)),
-        })
-        updateRecord(id, {
-            transactions: newArray,
-            costBasis: ((parseFloat(documents[cryptoIndex].totalCost) - parseFloat(valueToDelete.cost)) / (parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins))).toFixed(5),
-            currentValue: ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * parseFloat(documents[cryptoIndex].currentPrice)).toFixed(5),
-        })
-        updateRecord(id, {
-            transactions: newArray,
-            profitOrLoss : (((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].currentPrice))     -      ((parseFloat(documents[cryptoIndex].totalCoin) - parseFloat(valueToDelete.coins)) * (documents[cryptoIndex].costBasis))).toFixed(5),
-        })
-       }
-    }
+                removeBuy(newArray, valueToDelete)
+            }
+        }
        
        else if(valueToDelete.type === 'Sell'){
-           
-           
-           
+        console.log(documents[cryptoIndex].totalCoin)  
+        console.log(valueToDelete.coins)   
+        console.log(parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins))
 
-           
-        updateRecord(id, {
-            transactions: newArray,
-            totalCoin: (parseFloat(documents[cryptoIndex].totalCoin) + parseFloat(valueToDelete.coins)).toFixed(5) ,
-            totalCost: (parseFloat(documents[cryptoIndex].totalCost) + parseFloat(valueToDelete.cost)).toFixed(5)
-        })
-        updateRecord(id, {
-            transactions: newArray,
-            costBasis: ((parseFloat(documents[cryptoIndex].totalCost)) / (parseFloat(documents[cryptoIndex].totalCoin))).toFixed(5), 
-            currentValue: ((parseFloat(documents[cryptoIndex].totalCoin)) * parseFloat(documents[cryptoIndex].currentPrice)).toFixed(5)
-        })
-        updateRecord(id, {
-            transactions: newArray,
-            profitOrLoss : (((parseFloat(documents[cryptoIndex].totalCoin)) * (documents[cryptoIndex].currentPrice))     -      ((parseFloat(documents[cryptoIndex].totalCoin)) * (documents[cryptoIndex].costBasis))).toFixed(5)  
-        })
-        } 
-       
-    
-
-       
-}
+            removeSell(newArray, valueToDelete  )
+        }
+    }
 
 
 

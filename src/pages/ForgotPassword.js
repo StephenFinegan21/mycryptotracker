@@ -1,19 +1,11 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box'
 import myImage from '../assets/forgot-password-img.png';
 import { Link } from 'react-router-dom'
-
-
-
-
-
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
 
 const theme = createTheme({
     palette: {

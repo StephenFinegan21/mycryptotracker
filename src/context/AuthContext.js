@@ -1,7 +1,7 @@
-//Context handles the global state of the current user (Authenticated / not authenticated)
+//handles the global state of the current user (Authenticated / not authenticated)
 //Different actions such as registering, logging in, logging out will change the auth state
 //AuthContext will handle updating the state and make it available to different components.
-//Allows us to change what to show the user depending on if they are authenticated
+//Allows us to change what to show the user depending on if they are logged in or out
 
 import {  createContext, useReducer  } from "react";
 import { useEffect } from "react";

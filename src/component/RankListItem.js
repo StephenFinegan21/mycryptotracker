@@ -1,6 +1,6 @@
 import React from 'react'
 import millify from 'millify'
-
+//Millify formats large numbers to make them look clearer
 
 
 const RankListItem = ( { name, logo, price, vol, change, cap, ath }) => {
@@ -15,9 +15,7 @@ const RankListItem = ( { name, logo, price, vol, change, cap, ath }) => {
         <p>{millify(ath)}</p>
         <p className={change >= -0 ? 'plus':'minus'}>{millify(change)}</p>
         <p>{millify(price)}</p>
-        
-        
-        </div>
+      </div>
        
       </>
     )

@@ -13,10 +13,7 @@ import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
-    
-      
-    
-        <Provider  store={Store}>
+    <Provider  store={Store}>
           <AuthContextProvider>
           <App />
           </AuthContextProvider>

@@ -12,8 +12,10 @@ const News = () => {
         <>
         <h2>Latest Crypto News</h2>
         <div className="news-grid">
-            {articleData && articleData.map(a => 
+            {articleData && articleData.map((a, articleIndex) => 
             <Article
+            keyValue = {articleIndex}
+            key = {articleIndex}
                 heading={a.name}
                 link={a.url}
                 date={a.datePublished}
