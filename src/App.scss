@@ -55,11 +55,21 @@ h1, h2{
     width: 100%;
     background-color: $darkColour;
     font-size: 1rem;
+    padding: 5%;
+    
+    
+ 
 
     @media screen and (min-width: $medium) {
         width: 59.44444%;
         float: right;
         background-color: $offWhite;
+        position: absolute;
+        top: 10px;
+        left: 40.5%;
+        padding: 0;
+    
+        
     
     }
 
@@ -80,11 +90,13 @@ h1, h2{
         text-align: center;
         font-weight: 500;
         color: $offWhite;
+        
     }
     a{
         color: $offWhite;
+        
         @media screen and (min-width: $medium) {
-            
+            color: $darkColour;
         }
     }
 }
@@ -194,7 +206,7 @@ h1, h2{
    @media screen and (min-width: $medium) {
     background-color: $darkColour;
     height: 100vh;
-    margin-top: -50px;
+    
     display: flex;
     align-items: baseline;
     justify-content: center;

@@ -14,13 +14,14 @@ const Nav = () => {
         <>
         {/*Nav bar shown to NOT logged in users*/}
         {!user &&
-            <div className="navbar" >
-                <ul>
-                <li><Link to="/News" style={{ textDecoration: 'none'}}>News</Link></li>
-                    <li><Link to="/Rankings" style={{ textDecoration: 'none'}}>Rankings</Link></li>
-                    <li><Link to="/login" style={{ textDecoration: 'none' }}>Login</Link></li>
-                </ul>
-            </div>
+           <div className="navbar" >
+           <p className="logo"></p>
+           <ul>
+               <li><Link to="/login" style={{ textDecoration: 'none'}}>Login</Link></li>
+               <li><Link to="/news" style={{ textDecoration: 'none' }}>News</Link></li>
+               <li><Link to="/Rankings" style={{ textDecoration: 'none'}}>Rankings</Link></li>
+           </ul>
+       </div>
         }
 
         {/*Nav bar shown to logged in users*/}
